@@ -16,13 +16,12 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class EventSerializer(serializers.ModelSerializer):
     image = ImageSerializer()
-
+    # category = CategorySerializer(read_only=True)
     class Meta:
         model = Event
         fields = '__all__'
 
     def create(self, validated_data):
         image_data = validated_data.pop('image')
-        print(image_data)
         image = Image.objects.create(**image_data)
         return Event.objects.create(image=image, **validated_data)

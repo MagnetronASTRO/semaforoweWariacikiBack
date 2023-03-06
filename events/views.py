@@ -46,6 +46,9 @@ class EventViewSet(viewsets.ModelViewSet):
 
         result_df = gdf.drop(['geometry'], axis=1)
 
+        imgdf = pd.DataFrame(list(Image.objects.all().values()))
+        imgdf = imgdf.drop('category_id', axis=1)
+        result_df = result_df.join(imgdf.set_index('id'), on='image_id')
         return Response(json.loads(result_df[:10].to_json(orient="records")), status.HTTP_200_OK)
 
 class CategoryViewSet(viewsets.ModelViewSet):

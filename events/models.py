@@ -16,7 +16,7 @@ def get_user_dir(request, filename):
 
 class Image(models.Model):
     image = models.ImageField(upload_to=get_user_dir, blank=True, null=True)
-    is_unique = models.BooleanField()
+    is_unique = models.BooleanField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
 
